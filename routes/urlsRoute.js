@@ -1,6 +1,5 @@
 require("dotenv").config()
 
-const { request } = require("express")
 const express = require("express")
 const router = express.Router()
 
@@ -11,10 +10,11 @@ const Url = require("../models/url")
 const isValidUrl = require("../validateUrl")
 
 router.post("/short", async (req, res) => {
+    
     const { origUrl } = req.body
     if (isValidUrl(origUrl)) {
         try {
-            const url = await Url.findOne({ origUrl: origUrl })
+            const url = await Url.findOne({ origUrl })
             if (url) {
                 res.send(url)
             }
@@ -43,7 +43,3 @@ router.post("/short", async (req, res) => {
 
 
 module.exports = router
-
-
-
-
